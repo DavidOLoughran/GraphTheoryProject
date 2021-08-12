@@ -43,6 +43,31 @@ def shunt(infix):
 
     return postfix
 
+class State:
+    """A state and its arrows in Thompson's construction."""
+    def __init__(self, label, arrows, accept):
+        """label is the arrow labels, arrows is a list of states to
+           point to, accept is a boolean as to whether this is an accept
+           state.
+        """
+        self.label = label
+        self.arrows = arrows
+        self.accept = accept
+    
+    def followes(self):
+        """The set of states that are gotten from following this state
+           and all its e arrows."""
+
+        states = {self}
+
+        if self.label is None:
+
+            for state in self.arrows:
+
+                states = (states | state.followes())
+   
+        return states
+
 if __name__ == "__main__":
     for infix in ["3+4*(2-1)", "1+2+3+4+5*6", "(1+2)*(4*(6-7))"]:
         print(f"infix:   {infix}")
