@@ -179,7 +179,24 @@ def re_to_nfa(postfix):
 
 
 if __name__ == "__main__":
+    print("Shunting")
     for infix in ["3+4*(2-1)", "1+2+3+4+5*6", "(1+2)*(4*(6-7))"]:
         print(f"infix:   {infix}")
         print(f"postfix: {shunt(infix)}")
+        print()
+
+    print("Thompsons")
+    for test in [  ["(a.b|b*)",   ["ab", "b", "bb", "a"]]
+             , ["a.(b.b)*.a", ["aa", "abba", "aba"]]
+             , ["1.(0.0)*.1", ["11", "100001", "11001"]]
+    ]:
+        infix = test[0]
+        print(f"infix:    {infix}")
+        postfix = shunt(infix)
+        print(f"postfix:  {postfix}")
+        nfa = re_to_nfa(postfix)
+        print(f"thompson: {nfa}")
+        for s in test[1]:
+            match = nfa.match(s)
+            print(f"Match '{s}': {match}")
         print()
