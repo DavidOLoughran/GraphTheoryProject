@@ -1,5 +1,5 @@
 
-import sys
+import argparse
 
 # Psuedo code used for shunt(infix) found at https://en.wikipedia.org/wiki/Shunting-yard_algorithm
 
@@ -180,15 +180,10 @@ def re_to_nfa(postfix):
     else:
         return stack[0]
     
-def compare_re_to_file():
+def compare_re_to_file(infix, fileName):
     #Declaring matches array to be displayed later
     matchesArray = []
-    
-    #Prompting user the input which file they would like use
-    fileName = input("Enter file name\n")
-    #Prompting user the input expression to compare with the text file
-    infix = input("Please Enter Expression to compare with text file\n\n")
-    
+        
     #Opens file from user input to be read
     with open(fileName, "r") as file:
         #Assigns contents of text file as a string
@@ -204,39 +199,19 @@ def compare_re_to_file():
                 if (match == True):
                     matchesArray.append(expression)
 
-    print("\nMatches Found: " , len(matchesArray))
-    print("See below list of matches found")
-    print(matchesArray)
+    print(len(matchesArray))
+
+    
+parser = argparse.ArgumentParser(description='Process some integers.')
+
+parser.add_argument("file", nargs='+', help="select file to be used")
+args = parser.parse_args()
+
+print(args.file[0], args.file[1])
+compare_re_to_file(args.file[0], args.file[1])
     
 
 
-if __name__ == "__main__":
-    
-    
-    
-    print("Shunting")
-    for infix in ["3+4*(2-1)", "1+2+3+4+5*6", "(1+2)*(4*(6-7))"]:
-        print(f"infix:   {infix}")
-        print(f"postfix: {shunt(infix)}")
-        print()
-
-    print("Thompsons")
-    for test in [  ["(a.b|b*)",   ["ab", "b", "bb", "a"]]
-             , ["a.(b.b)*.a", ["aa", "abba", "aba"]]
-             , ["1.(0.0)*.1", ["11", "100001", "11001"]]
-    ]:
-        infix = test[0]
-        print(f"infix:    {infix}")
-        postfix = shunt(infix)
-        print(f"postfix:  {postfix}")
-        nfa = re_to_nfa(postfix)
-        print(f"thompson: {nfa}")
-        for s in test[1]:
-            match = nfa.match(s)
-            print(f"Match '{s}': {match}")
-        print()
-        
-    compare_re_to_file()
      
      
         
