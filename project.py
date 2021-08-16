@@ -1,5 +1,8 @@
 
+import sys
+
 # Psuedo code used for shunt(infix) found at https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+
 
 def shunt(infix):
     """Convert infix expressions to postfix."""
@@ -176,9 +179,41 @@ def re_to_nfa(postfix):
         return None
     else:
         return stack[0]
+    
+def compare_re_to_file():
+    #Declaring matches array to be displayed later
+    matchesArray = []
+    
+    #Prompting user the input which file they would like use
+    fileName = input("Enter file name\n")
+    #Prompting user the input expression to compare with the text file
+    infix = input("Please Enter Expression to compare with text file\n\n")
+    
+    #Opens file from user input to be read
+    with open(fileName, "r") as file:
+        #Assigns contents of text file as a string
+        for line in file:
+            #Calls shunt function passing users input as argument, assigns it to postfix
+            postfix = shunt(infix)
+            nfa = re_to_nfa(postfix)
+            #Divides the new String line into substrings and puts them in an array
+            for expression in line.split():
+                #Checks each substring for a match by calling match function in the nfa class
+                match = nfa.match(expression)
+                #If there is a match, adds substring to matchesArray
+                if (match == True):
+                    matchesArray.append(expression)
+
+    print("\nMatches Found: " , len(matchesArray))
+    print("See below list of matches found")
+    print(matchesArray)
+    
 
 
 if __name__ == "__main__":
+    
+    
+    
     print("Shunting")
     for infix in ["3+4*(2-1)", "1+2+3+4+5*6", "(1+2)*(4*(6-7))"]:
         print(f"infix:   {infix}")
@@ -200,3 +235,8 @@ if __name__ == "__main__":
             match = nfa.match(s)
             print(f"Match '{s}': {match}")
         print()
+        
+    compare_re_to_file()
+     
+     
+        
