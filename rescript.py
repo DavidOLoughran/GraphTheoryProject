@@ -218,20 +218,25 @@ def compare_re_to_file(fileName, isVerbose):
     
 
     
-parser = argparse.ArgumentParser(description='Process file names')
+parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, 
+                                 description='''Comparing Regular Expression to text file(s)
+------------------------------------------------- 
+How to run: python3 rescript.py a.b input.txt test.txt
+
+Program will crash if this format is not used.''')
 #argument added for parsing expression and file name
-parser.add_argument("file", nargs='+', help="select file to be used")
+parser.add_argument("re_file", nargs='+', help="A Regular Expression followed by text file name(s) ")
 #argument added to display both matches and amount of matches
-parser.add_argument("-v", "--verbose", action="store_true", help="display both matches and amount")
+parser.add_argument("-v", "--verbose", action="store_true", help="Displays number of matches and list of matches")
 #assigning parsed args as variable
 args = parser.parse_args()
 
 #if --verbose passes True to confirm --verbose was used
 if args.verbose:
-    compare_re_to_file(args.file, True)
+    compare_re_to_file(args.re_file, True)
 #by default pass False to only display amount of matches
 else:
-    compare_re_to_file(args.file, False)
+    compare_re_to_file(args.re_file, False)
 
 
     
