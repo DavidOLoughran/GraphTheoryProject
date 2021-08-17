@@ -180,32 +180,41 @@ def re_to_nfa(postfix):
     else:
         return stack[0]
     
-def compare_re_to_file(infix, fileName, isVerbose):
+
+        
+def compare_re_to_file(fileName, isVerbose):
     #Declaring matches array to be displayed later
-    matchesArray = []
+    infix = fileName[0]
+    nI = len(fileName)
+    
+    for index in range(1, nI):
+        textFile = fileName[index]
+        print(textFile)
+        
+        matchesArray = []
         
     #Opens file from user input to be read
-    with open(fileName, "r") as file:
+        with open(textFile, "r") as file:
         #Assigns contents of text file as a string
-        for line in file:
+            for line in file:
             #Calls shunt function passing users input as argument, assigns it to postfix
-            postfix = shunt(infix)
-            nfa = re_to_nfa(postfix)
+                postfix = shunt(infix)
+                nfa = re_to_nfa(postfix)
             #Divides the new String line into substrings and puts them in an array
-            for expression in line.split():
+                for expression in line.split():
                 #Checks each substring for a match by calling match function in the nfa class
-                match = nfa.match(expression)
+                    match = nfa.match(expression)
                 #If there is a match, adds substring to matchesArray
-                if (match == True):
-                    matchesArray.append(expression)
+                    if (match == True):
+                        matchesArray.append(expression)
 
     #Displays both matches and amount if --verbose is used
-    if isVerbose == True:
-        print(len(matchesArray))
-        print(matchesArray)
+        if isVerbose == True:
+            print(len(matchesArray))
+            print(matchesArray)
     #Displays both amount of matches by default
-    elif isVerbose == False:
-        print(len(matchesArray))
+        elif isVerbose == False:
+            print(len(matchesArray))
     
 
     
@@ -219,10 +228,10 @@ args = parser.parse_args()
 
 #if --verbose passes True to confirm --verbose was used
 if args.verbose:
-    compare_re_to_file(args.file[0], args.file[1], True)
+    compare_re_to_file(args.file, True)
 #by default pass False to only display amount of matches
 else:
-    compare_re_to_file(args.file[0], args.file[1], False)
+    compare_re_to_file(args.file, False)
 
 
     
