@@ -180,7 +180,7 @@ def re_to_nfa(postfix):
     else:
         return stack[0]
     
-def compare_re_to_file(infix, fileName):
+def compare_re_to_file(infix, fileName, isVerbose):
     #Declaring matches array to be displayed later
     matchesArray = []
         
@@ -199,16 +199,32 @@ def compare_re_to_file(infix, fileName):
                 if (match == True):
                     matchesArray.append(expression)
 
-    print(len(matchesArray))
+    #Displays both matches and amount if --verbose is used
+    if isVerbose == True:
+        print(len(matchesArray))
+        print(matchesArray)
+    #Displays both amount of matches by default
+    elif isVerbose == False:
+        print(len(matchesArray))
+    
 
     
-parser = argparse.ArgumentParser(description='Process some integers.')
-
+parser = argparse.ArgumentParser(description='Process file names')
+#argument added for parsing expression and file name
 parser.add_argument("file", nargs='+', help="select file to be used")
+#argument added to display both matches and amount of matches
+parser.add_argument("-v", "--verbose", action="store_true", help="display both matches and amount")
+#assigning parsed args as variable
 args = parser.parse_args()
 
-print(args.file[0], args.file[1])
-compare_re_to_file(args.file[0], args.file[1])
+#if --verbose passes True to confirm --verbose was used
+if args.verbose:
+    compare_re_to_file(args.file[0], args.file[1], True)
+#by default pass False to only display amount of matches
+else:
+    compare_re_to_file(args.file[0], args.file[1], False)
+
+
     
 
 
