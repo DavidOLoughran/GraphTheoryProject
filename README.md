@@ -337,3 +337,18 @@ These examples have been adapted from http://www.cs.man.ac.uk/~pjj/cs212/fix.htm
 
 These differences explains the need for the likes of the Shunting Yard Algorithm. As although postfix expressions are easy and efficiently evaluated by computers, It can prove to be difficult for humans to understand larger complex postfix expressions so having the abilty for humans/users to work with infix notation and convert them into postfix notation is extremely helpful in utilising computers to process extremely complex expressions.
 
+### Explain how Thompson's construction for regular expressions works.
+Thompsons Construction is an Algorithm created by Ken Thompson which allows us to transform a regular expression into an equivalent and NFA (Nondeterministic Finite Automaton). We can then use this NFA to compare a regular expression to a String to see if there are any matches. Regular Expressions are used to describe search patterns, however NFA’s are more suitable for complexity as they make these patterns easier to execute on a computer. <br/>
+Thompsons Algorithm works recursively as it splits an expression into subexpressions which allows us to construct an NFA by following a set of rules. The regular expression defines a language to be recognised and the NFA will be able to recognise that same language. <br/>
+We start by assuming the regular expression is in postfix which can be achieved using the Shunting Yard Algorithm. We then create a stack of fragments of the overall NFA. All normal/literal characters will be pushed straight to the stack while all special characters are treated as operators and will be popped from the stack to do something. <br/><br/>
+For Non-special characters we will create a fragment with a start state and an accept state and link them together with a single arrow. There is only ever one of each state in Thompsons Construction. An empty fragment with a single start and accept state will also be included.
+#### Concatenation (“.”)
+If the special character is a concatenation You pop two fragments and two nfas from the NFA stack and link them together with an e arrow. Create a new NFA with the top NFA’s start state and the other NFAs end state. Then push it too the stack. 
+#### Union / OR (“|”)
+If the special character is a Union you pop two fragments from the stack and create new start and end states using e arrows making them point at the old start states. You then make the old end states point non-accept and point them to new accept state and create a new NFA to be pushed to the stack.
+#### Kleene’s Star ( “ * “ )
+If the special character is a Kleene’s Star you pop the top NFA off the stack and create new start and accept states. The new start stae points to the old start state. The old accept state points back to the old start state and to the new accept state. <br/>
+
+A key point to remember when dealing with Thompsons Construction nothing ever points to the start state and the accept state never points to anything. Also, from every state there is only a single symbol arrow or one or two e arrows. <br/>
+After following the above steps you should be able use the NFA to search any piece of text to see if the there is a match for the pattern expressed by the NFA. 
+
