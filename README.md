@@ -352,3 +352,17 @@ If the special character is a Kleene’s Star you pop the top NFA off the stack 
 A key point to remember when dealing with Thompsons Construction nothing ever points to the start state and the accept state never points to anything. Also, from every state there is only a single symbol arrow or one or two e arrows. <br/>
 After following the above steps you should be able use the NFA to search any piece of text to see if the there is a match for the pattern expressed by the NFA. 
 
+### Explain what is meant by the term irregular language in the context of regular expressions.
+
+An irregular language is any language that cannot be defined by a regular expression which is also known as a nonregular language. The method that is often used to prove that a language is irregular is The Pumping Lemma. This is a lemma that is used to describe an essential property of all regular languages. Therefore, based on a proof by contradiction if a String does not meet the requirements of the pumping lemma then it can be defined as irregular. Any language that requires memory can be defined as irregular as the memory of FSM (finite state machines).  Regular expressions describe patterns that are can be recognised by FSM. A regular expression is simply just the algebraic representation of an FSA (Finite State Automaton).<br/><br/>
+A simplified example of an irregular language can be shown if we define an example Language(L) = [ababb ababb].<br/><br/>
+Here we can see that the rule of this language is that the first 5 letters should be [ababb] as it is repeated. Since we know that in order to repeat [ababb] we need to remember the length and order of this String it cannot be defined using a regular expression making it an irregular language.
+To prove a language is irregular using The Pumping Lemma we can do the following.<br/><br/>
+If A is a regular language, then A must have a Pumping Length (P) so that any String (S) where S the String is greater than the pumping length P(S>=P). <br/>
+Then this String can be divided into 3 parts (S = x y z). So, this means we have to take a String S from the language A and divide it into three parts in a way that the following statements are true.
+
+- Using S = x y z, the String that is produced from increasing y by any amount of times must still belong to the language A. (x y ^i z E A for every i>=0). 
+- That the length of y is greater than 0 in S = z y z. ( |y| > 0).
+- The length of x and y together must be less than or equal to P (|xy| <= P)
+
+Now we can use this to prove that a language is irregular based on proof by contradiction as mentioned above. By repeating the steps in The Pumping Lemma we can check to see if the three statements are true. If the language is unable to satisfy these three pumping conditions at the same time the String S can’t be pumped and therefore proving that it is an irregular language.
