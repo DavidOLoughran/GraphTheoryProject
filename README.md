@@ -370,8 +370,8 @@ The explination of The Pumping Lemma was adapted from the Neso Academy - https:/
 Now we can use this to prove that a language is irregular based on proof by contradiction as mentioned above. By repeating the steps in The Pumping Lemma we can check to see if the three statements are true. If the language is unable to satisfy these three pumping conditions at the same time the String S can’t be pumped and therefore proving that it is an irregular language.
 
 ### References
-Shunting Yard Algorithm - https://en.wikipedia.org/wiki/Shunting-yard_algorithm
-Thompsons Construction - https://en.wikipedia.org/wiki/Thompson%27s_construction, Lab videos were used to help describe how it works
-Infix and Postfix Examples - http://www.cs.man.ac.uk/~pjj/cs212/fix.html
-Irregular Languages - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy
-The Pumping Lemma - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy
+Shunting Yard Algorithm - https://en.wikipedia.org/wiki/Shunting-yard_algorithm<br/>
+Thompsons Construction - https://en.wikipedia.org/wiki/Thompson%27s_construction, Lab videos were used to help describe how it works <br/>
+Infix and Postfix Examples - http://www.cs.man.ac.uk/~pjj/cs212/fix.html <br/>
+Irregular Languages - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy <br/>
+The Pumping Lemma - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy <br/>
