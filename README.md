@@ -89,7 +89,7 @@ First a stack is initialised and then we loop through the postfix expression fro
 - You then take accept state from NFA1 and make it no longer an accept state.
 - Then you make it point at the start state of NFA2 to create a path from nfa1 to nfa2.
 - Create a new NFA with NFA1's start state and NFA2's end state.
-- Finally push it to the stack
+- Finally push it to the stack.
 ```sh
    if c == '.':
             nfa2 = stack[-1]
@@ -113,7 +113,7 @@ First a stack is initialised and then we loop through the postfix expression fro
 - You then create new start and end states and make them point at the old start states.
 - Then make the old end states (NFA1 and NFA2) non-accept states and point them to new states .
 - Create a new NFA.
-- Finally push it to the stack
+- Finally push it to the stack.
 
 ```sh
    elif c == '|':
@@ -146,7 +146,7 @@ First a stack is initialised and then we loop through the postfix expression fro
 - Then make the start state point at the old start state and at the new end state.
 - Make the old end state non accept and point it to a new end and start state.
 - Create a new NFA.
-- Finally push it to the stack
+- Finally push it to the stack.
 
 ```sh
    elif c == '*':
@@ -172,10 +172,10 @@ First a stack is initialised and then we loop through the postfix expression fro
    
 ##### Below are the steps taken if it is a non-special character (literal character) <br/>
 
-- First you have to create the end state and the start state
+- First you have to create the end state and the start state.
 - Point the new start state at the new end state .
 - Create a new NFA with the start and end states.
-- Finally push it to the stack
+- Finally push it to the stack.
 
 ```sh
    else:
@@ -192,6 +192,46 @@ First a stack is initialised and then we loop through the postfix expression fro
 **NOTE:** There should only be one NFA on the Stack
 - After checking to make there is only one NFA on the stack, The stack can be returned to the function.
 
+### Checking For A Match
+#### Followes Function
+
+First a followes function is created in the State class to get a set of states from following this state and all of its e arrows. 
+- We start by assigning this state in a set to be returned.
+- We check if this state has e arrows by checking if its value is None.
+- We then loop through this state's arrows and incorperate the arrows in the set of state's to be returned.
+- Finally we return the new set of states.
+```sh
+        states = {self}
+
+        if self.label is None:
+
+            for state in self.arrows:
+                states = (states | state.followes())
+  
+        return states
+    
+```
+#### Match Function
+A match function is created in the NFA class to return True if this the NFA matches the parsed String.
+- We start by assigning a list of the previous states that we are still in to a variable.
+- We loop through each character in the parsed String  starting with an empty set of the current states.
+- Now we loop through all the previous states to check if theres a c arrow from the state we add followes for the next state.
+- Then we replace the previous state with the current state and return True if the final state is in the previous state(Match is found).
+- Otherwise we return False if no match is found.
+```sh
+        previous = self.start.followes()
+
+        for c in s:
+            current = set()
+
+            for state in previous:
+                if state.label == c:
+                    current = (current | state.arrows[0].followes())
+
+            previous = current
+ 
+        return (self.end in previous)  
+```
 
 
 
