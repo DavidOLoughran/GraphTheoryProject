@@ -365,4 +365,13 @@ Then this String can be divided into 3 parts (S = x y z). So, this means we have
 - That the length of y is greater than 0 in S = z y z. ( |y| > 0).
 - The length of x and y together must be less than or equal to P (|xy| <= P)
 
+The explination of The Pumping Lemma was adapted from the Neso Academy - https://www.youtube.com/watch?v=WrzaPNj9OZ4&ab_channel=NesoAcademy and https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy
+
 Now we can use this to prove that a language is irregular based on proof by contradiction as mentioned above. By repeating the steps in The Pumping Lemma we can check to see if the three statements are true. If the language is unable to satisfy these three pumping conditions at the same time the String S can’t be pumped and therefore proving that it is an irregular language.
+
+### References
+Shunting Yard Algorithm - https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+Thompsons Construction - https://en.wikipedia.org/wiki/Thompson%27s_construction, Lab videos were used to help describe how it works
+Infix and Postfix Examples - http://www.cs.man.ac.uk/~pjj/cs212/fix.html
+Irregular Languages - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy
+The Pumping Lemma - https://www.youtube.com/watch?v=Ty9tpikilAo&t=10s&ab_channel=NesoAcademy
