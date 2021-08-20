@@ -315,3 +315,25 @@ We can see how this is done below:
          elif isVerbose == False:
             print(len(matchesArray))
 ```
+## Explain the difference between regular expressions in infix notation and those in postfix notation.
+
+Infix and Postfix notations are different but are also equivalent ways of writing an algebraic expression. The order of operands stays the same but the actual order of operators are different.<br/><br/>
+
+**Infix Notation:** This is the traditional method we use in the likes of mathematics where operators are written in between their operands (A + b). This format of writing an expression is a lot easier to understand and evaluate for humans but is a lot less efficient for a computer to compile as it needs information about operator precedence and associativity rules as well as brackets that can override these rules. For example, the usual rules of precedence suggest we perform multiplication before division and then addition before subraction.<br/><br/>
+
+**Postfix Notation:** However when it comes to postfix expressions the operators are placed after the operands (A B +). The order of evaluation for postfix is always left to right where brackets can't be used to disrupt this order. This is a lot easier for computers to understand than infix as the expression itself already determines the precedence of operators as it is decided by placement rather than a set of rules. For example if a "+" is before a "*" the addition must be performed before the multiplication.<br/> <br/>
+
+### Examples of infix and postfix expressions
+If we want to multiply A and B, then divide C by D and add the results. We would use the following: <br/><br/>
+**Infix:** A * B + C / D  **Postfix:** A B * C D / + <br/>
+- As we can see for infix, we have to already understand that Multiplication followed by Division comes before Addition.
+- Whereas with postfix notation we can see the operators are already in the correct order of precedence.
+<br/><br/>If we want to add B and C, then multiply by A and then divide the results by D. We would use the following: <br/><br/>
+**Infix:** A * (B + C) / D  **Postfix:** A B C + * D / <br/>
+- Now in infix notation we must use brackets to show addition takes place before we can multiply the sum to later be divided.
+- We can see in postfix notation there is no use of brackets but instead the first operator is a "+" signifying B + C before it must be added first. Followed by "*", working backwards the next available character is A so the sum gets multiplied by A and so forth for "/" and D. <br/>
+
+These examples have been adapted from http://www.cs.man.ac.uk/~pjj/cs212/fix.html<br/>
+
+These differences explains the need for the likes of the Shunting Yard Algorithm. As although postfix expressions are easy and efficiently evaluated by computers, It can prove to be difficult for humans to understand larger complex postfix expressions so having the abilty for humans/users to work with infix notation and convert them into postfix notation is extremely helpful in utilising computers to process extremely complex expressions.
+
