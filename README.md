@@ -236,3 +236,82 @@ A match function is created in the NFA class to return True if this the NFA matc
 
 
 
+#### Comparing Regular Expression To Text File
+Now that the Shunting and Thompsons Algorithms have been created to check Regular Expressions for a match in a String we need to build a function to take in a Regular Expression and text files.
+- First we delcare an array to later store our matches.
+- We loop through the array of Strings conataining text file names.
+- We have to start from index 1 in the array as index 0 is the expression.
+- We declare an array to store the matches each loop for the current text file.
+- Open the the text file and pass the infix expression into the shunt function assigning it to a variable.
+- Pass that postfix expression into the re_to_nfa function to turn the postfix to an NFA.
+- Now we can split the text file and itterate through each word to check for a match by passing each word into the match function.
+- If the match function returns True we can append the word to the matches array to display the lenght of the array
+```sh
+def compare_re_to_file(fileName, isVerbose):
+    #Declaring matches array to be displayed later
+    infix = fileName[0]
+    nI = len(fileName)
+    
+    for index in range(1, nI):
+        textFile = fileName[index]
+        print(textFile)
+        
+        matchesArray = []
+        
+    #Opens file from user input to be read
+        with open(textFile, "r") as file:
+        #Assigns contents of text file as a string
+            for line in file:
+            #Calls shunt function passing users input as argument, assigns it to postfix
+                postfix = shunt(infix)
+                nfa = re_to_nfa(postfix)
+            #Divides the new String line into substrings and puts them in an array
+                for expression in line.split():
+                #Checks each substring for a match by calling match function in the nfa class
+                    match = nfa.match(expression)
+                #If there is a match, adds substring to matchesArray
+                    if (match == True):
+```
+
+
+
+### Parsing Regular Expression and File as Command Line Argument 
+Now all we have to do is pass the expression and file names as command line arguments.<br/>
+We do this by importing the `argparse` library. <br/>
+
+- First we assign the Argument Parser to a variable called `parser`.
+- We then add an argument for parsing the regular expression and file names as String's
+- An argument is added for the flag -v / --verbose which will be explained in the next section
+- Now we assign the different arguments to a variable.
+- Finally we pass the argument into out compare_re_to_file function descibed in the previous section.
+```sh
+parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, 
+                                 description='''Comparing Regular Expression to text file(s)
+------------------------------------------------- 
+How to run: python3 rescript.py a.b input.txt test.txt
+Program will crash if this format is not used.''')
+
+parser.add_argument("re_file", nargs='+', help="A Regular Expression followed by text file name(s) ")
+
+parser.add_argument("-v", "--verbose", action="store_true", help="Displays number of matches and list of matches")
+
+args = parser.parse_args()
+```
+#### --verbose Flag
+There are two different options when running the program.
+```sh
+if args.verbose:
+    compare_re_to_file(args.re_file, True)
+else:
+    compare_re_to_file(args.re_file, False)
+```
+- By default the a boolean value of False will be passed into the compare_re_to_file(fileName, isVerbose) which will only display the file name and the number of matches.
+- However if the --verbose flag is added it will pass a boolean value of True which will also display a list of the matches found.
+We can see how this is done below:
+```sh
+         if isVerbose == True:
+            print(len(matchesArray))
+            print(matchesArray)
+         elif isVerbose == False:
+            print(len(matchesArray))
+```
